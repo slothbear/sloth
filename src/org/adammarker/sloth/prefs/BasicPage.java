@@ -1,5 +1,6 @@
 package org.adammarker.sloth.prefs;
 
+import org.adammarker.sloth.LSL;
 import org.adammarker.sloth.SlothPlugin;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ColorFieldEditor;
@@ -23,30 +24,36 @@ public class BasicPage extends FieldEditorPreferencePage
     }
 
 
-    protected void createFieldEditors() {
-        addField(new BooleanFieldEditor("indent_braces",
-                "use smart indenting of braces", getFieldEditorParent())) ;
-        //TODO:  font not connected to anything at the moment.
-        addField(new FontFieldEditor("font_basic",
-                "font", getFieldEditorParent())) ;
+    protected void createFieldEditors() {        
         
-        addField(new ColorFieldEditor("color_background",
-                "background", getFieldEditorParent())) ;
-        
-        addField(new ColorFieldEditor("color_keyword_fg",
+        addField(new ColorFieldEditor(LSL.PREF_KEYWORD_FG,
                 "keywords", getFieldEditorParent())) ;
-        addField(new ColorFieldEditor("color_event_fg",
+        addField(new ColorFieldEditor(LSL.PREF_EVENT_FG,
                 "events", getFieldEditorParent())) ;
-        addField(new ColorFieldEditor("color_type_fg",
+        addField(new ColorFieldEditor(LSL.PREF_TYPE_FG,
                 "types", getFieldEditorParent())) ;
-        addField(new ColorFieldEditor("color_string_fg",
+        addField(new ColorFieldEditor(LSL.PREF_STRING_FG,
                 "strings", getFieldEditorParent())) ;
-        addField(new ColorFieldEditor("color_constant_fg",
+        addField(new ColorFieldEditor(LSL.PREF_CONSTANT_FG,
                 "constants", getFieldEditorParent())) ;
-        addField(new ColorFieldEditor("color_function_fg",
+        addField(new ColorFieldEditor(LSL.PREF_FUNCTION_FG,
                 "functions", getFieldEditorParent())) ;
-        addField(new ColorFieldEditor("color_comment_fg",
+        addField(new ColorFieldEditor(LSL.PREF_COMMENT_FG,
                 "comments", getFieldEditorParent())) ;
+        
+        //TODO:  font not connected to anything at the moment.
+        // do I need specific font?  use workbench default for now.
+//        addField(new FontFieldEditor(LSL.PREF_FONT_BASIC,
+//                "font", getFieldEditorParent())) ;
+        
+        addField(new ColorFieldEditor(LSL.PREF_FOREGROUND,
+                "foreground", getFieldEditorParent())) ;
+        addField(new ColorFieldEditor(LSL.PREF_BACKGROUND,
+                "background", getFieldEditorParent())) ;
+ 
+        //TODO:  for now, use smart indenting by default (SL internal default)
+//        addField(new BooleanFieldEditor("indent_braces",
+//                "use smart indenting of braces", getFieldEditorParent())) ;
     }
 
     
