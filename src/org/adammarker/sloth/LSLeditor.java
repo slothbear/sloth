@@ -4,15 +4,12 @@
 package org.adammarker.sloth;
 
 import java.util.ResourceBundle;
-
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.text.rules.Token;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
@@ -21,47 +18,84 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
  * @author Adam Marker 8Feb2005
  */
 public class LSLeditor extends TextEditor {
+    private IPreferenceStore preferenceStore ;
+    private ColorManager colorManager ;
+    private TokenManager tokenManager ;
+//    private FontManager fontManager ;
     
-    Color backgroundColor ;
     
 //    TODO:  maybe use AbstractDecoratedTextEditorPreferenceConstants??
     
     public LSLeditor() {
-        setSourceViewerConfiguration(new ViewerConfiguration());
+
+        colorManager = SlothPlugin.getDefault().getSharedTextColors() ;
+        tokenManager = SlothPlugin.getDefault().getTokenManager() ;
+//        fontManager  = SlothPlugin.getDefault().getFontManager() ;
+        
+        setSourceViewerConfiguration(new ViewerConfiguration(tokenManager));
+        
         //NOTE:  assoc the pref store here adds property change listener.
-        setPreferenceStore(SlothPlugin.getDefault().getPreferenceStore()) ;
+        preferenceStore = SlothPlugin.getDefault().getPreferenceStore() ;
+        setPreferenceStore(preferenceStore) ;
     }
 
     /* (non-Javadoc)
      * @see org.eclipse.ui.texteditor.AbstractDecoratedTextEditor#createPartControl(org.eclipse.swt.widgets.Composite)
      */
     public void createPartControl(Composite parent) {
-        // TODO Auto-generated method stub
         super.createPartControl(parent) ;
-       
-        
+      
         StyledText widget = getSourceViewer().getTextWidget();
-        
-        backgroundColor = new Color(Display.getCurrent(), LSL.BACKGROUND_RGB) ;
-        widget.setBackground(backgroundColor);
+        widget.setBackground(colorManager.getColor(
+                PreferenceConverter.getColor(preferenceStore, LSL.PREF_BACKGROUND))) ;
+        widget.setForeground(colorManager.getColor(
+                PreferenceConverter.getColor(preferenceStore, LSL.PREF_FOREGROUND))) ;
 
 		}
     
-	protected void createActions() {
-		   super.createActions();
-		   Action action = new ContentAssistAction(
-		   			ResourceBundle.getBundle("org.adammarker.sloth.Resources"), 
-					"ContentAssistProposal.", this);
-		   action.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
-		   setAction("ContentAssistProposal", action);
-		   markAsStateDependentAction("ContentAssistProposal", true);
-		}
+    // support for content assist (currently only via keystroke??)
+    protected void createActions() {
+        super.createActions();
+        Action action = new ContentAssistAction(
+	   			ResourceBundle.getBundle("org.adammarker.sloth.Resources"), 
+	   			"ContentAssistProposal.", this);
+        action.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
+        setAction("ContentAssistProposal", action);
+        markAsStateDependentAction("ContentAssistProposal", true);
+	}
 
 	/* (non-Javadoc)
      * @see org.eclipse.ui.texteditor.AbstractDecoratedTextEditor#handlePreferenceStoreChanged(org.eclipse.jface.util.PropertyChangeEvent)
      */
     protected void handlePreferenceStoreChanged(PropertyChangeEvent event) {
-        System.out.println("pref store changed " + event.getProperty()) ;
+        String property = event.getProperty() ;
+//        System.out.println("pref store changed " + property) ;
+     
+        StyledText widget = getSourceViewer().getTextWidget();
+        
+        // IPreferenceStore preferenceStore = getPreferenceStore() ;
+        if (property.equals(LSL.PREF_BACKGROUND)) {
+            widget.setBackground(colorManager.getColor(
+                    PreferenceConverter.getColor(preferenceStore, LSL.PREF_BACKGROUND))) ;
+        }
+        else if (property.equals(LSL.PREF_FOREGROUND)) {
+            widget.setForeground(colorManager.getColor(
+                    PreferenceConverter.getColor(preferenceStore, LSL.PREF_FOREGROUND))) ;               
+        }
+//        else if (property.equals(LSL.PREF_INDENT_BRACE)) {
+//            //TODO:  handle brace indent
+//        }
+//        else if (property.equals(LSL.PREF_FONT_BASIC)) {
+//
+//            FontData fd[] = (FontData[]) event.getNewValue() ;
+//            Font f = fontManager.getFont(fd[0]) ;
+//            // Font f = new Font(Display.getCurrent(), fd[0]) ;
+//            widget.setFont(f) ;
+//        }
+        else if (property.startsWith((LSL.COLOR_PREFIX))) {
+            tokenManager.handlePreferenceStoreChanged(event) ;
+        }
+        
         super.handlePreferenceStoreChanged(event) ;
     }
 
@@ -69,22 +103,23 @@ public class LSLeditor extends TextEditor {
     /* (non-Javadoc)
      * @see org.eclipse.ui.texteditor.AbstractTextEditor#affectsTextPresentation(org.eclipse.jface.util.PropertyChangeEvent)
      */
+    //TODO:  assume for now that everything affects presentation.
+    // note:  fore/background changes should return false; tested, and apparently
+    // picked up elsewhere ... cuz they always take affect.
     protected boolean affectsTextPresentation(PropertyChangeEvent event) {
-        System.out.println("atp: " + event.getProperty()) ;
-        // return event.getProperty().startsWith("color_") ||
-        			// super.affectsTextPresentation(event) ;
-        return true ;
+
+        //TODO:  this startsWith repeats the one above in HPS.  D.R.Y.
+         return event.getProperty().startsWith((LSL.COLOR_PREFIX))
+         	|| super.affectsTextPresentation(event) ;
+
     }
-    
-    
-	/* (non-Javadoc)
+
+    /* (non-Javadoc)
      * @see org.eclipse.ui.editors.text.TextEditor#dispose()
      */
     public void dispose() {
-        //BUG:  need to dispose of other colors (in lslconstants)
-        if (backgroundColor != null) {
-            backgroundColor.dispose() ;
-            backgroundColor = null ;
-        }
+        super.dispose() ;
+        setPreferenceStore(null) ;		// removes IPropertyChangeListener
     }
+    
 }
