@@ -3,7 +3,7 @@
 <plugin
    id="org.adammarker.sloth"
    name="Sloth (LSL editor)"
-   version="1.0.0"
+   version="1.0.2"
    provider-name="Adam Marker"
    class="org.adammarker.sloth.SlothPlugin">
 
@@ -20,16 +20,17 @@
       <import plugin="org.eclipse.ui.editors"/>
       <import plugin="org.eclipse.ui.workbench.texteditor"/>
    </requires>
-   
+
    <extension
          point="org.eclipse.ui.editors">
       <editor
+            name="LSL editor"
+            default="true"
+            extensions="lsl,LSL"
             icon="icons/hand.gif"
             class="org.adammarker.sloth.LSLeditor"
-            default="true"
-            name="LSL editor"
-            id="org.adammarker.sloth.editor"
-            extensions="lsl,LSL"/>
+            id="org.adammarker.sloth.editor">
+      </editor>
    </extension>
 
 </plugin>
