@@ -16,6 +16,19 @@
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
    </requires>
+   
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            icon="icons/hand.gif"
+            class="org.adammarker.sloth.LSLeditor"
+            default="true"
+            name="LSL editor"
+            id="org.adammarker.sloth.editor"
+            extensions="lsl,LSL"/>
+   </extension>
 
 </plugin>
