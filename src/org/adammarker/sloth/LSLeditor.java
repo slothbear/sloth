@@ -6,6 +6,8 @@ package org.adammarker.sloth;
 import java.util.ResourceBundle;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.text.rules.Token;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -26,8 +28,10 @@ public class LSLeditor extends TextEditor {
     
     public LSLeditor() {
         setSourceViewerConfiguration(new ViewerConfiguration());
+        //NOTE:  assoc the pref store here adds property change listener.
+        setPreferenceStore(SlothPlugin.getDefault().getPreferenceStore()) ;
     }
-    
+
     /* (non-Javadoc)
      * @see org.eclipse.ui.texteditor.AbstractDecoratedTextEditor#createPartControl(org.eclipse.swt.widgets.Composite)
      */
@@ -53,6 +57,26 @@ public class LSLeditor extends TextEditor {
 		   markAsStateDependentAction("ContentAssistProposal", true);
 		}
 
+	/* (non-Javadoc)
+     * @see org.eclipse.ui.texteditor.AbstractDecoratedTextEditor#handlePreferenceStoreChanged(org.eclipse.jface.util.PropertyChangeEvent)
+     */
+    protected void handlePreferenceStoreChanged(PropertyChangeEvent event) {
+        System.out.println("pref store changed " + event.getProperty()) ;
+        super.handlePreferenceStoreChanged(event) ;
+    }
+
+    
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.texteditor.AbstractTextEditor#affectsTextPresentation(org.eclipse.jface.util.PropertyChangeEvent)
+     */
+    protected boolean affectsTextPresentation(PropertyChangeEvent event) {
+        System.out.println("atp: " + event.getProperty()) ;
+        // return event.getProperty().startsWith("color_") ||
+        			// super.affectsTextPresentation(event) ;
+        return true ;
+    }
+    
+    
 	/* (non-Javadoc)
      * @see org.eclipse.ui.editors.text.TextEditor#dispose()
      */

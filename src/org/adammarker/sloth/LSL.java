@@ -4,6 +4,7 @@
 package org.adammarker.sloth;
 
 import org.eclipse.jface.text.TextAttribute;
+import org.eclipse.jface.text.rules.Token;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -42,7 +43,7 @@ public interface LSL {
 	        new Color(Display.getCurrent(), FUNCTION_RGB), null, SWT.BOLD);
     static final TextAttribute COMMENT = new TextAttribute(
             new Color(Display.getCurrent(), COMMENT_RGB), null, SWT.NONE) ; 
-	
+    
     // updated 17Feb05 from wiki (++ default, state) (by hand)
     // http://secondlife.com/badgeo/wakka.php?wakka=FlowControl
     final static String[] KEYWORDS = {
@@ -405,7 +406,7 @@ public interface LSL {
 
     // updated 17Feb05 from wiki (many new functions in 1.4++) (BBEdit wakka=)
     // http://secondlife.com/badgeo/wakka.php?wakka=Functions
-    String[] FUNCTIONS = {
+    final static String[] FUNCTIONS = {
         	"llAbs",
         	"llAcos",
         	"llAddToLandPassList",

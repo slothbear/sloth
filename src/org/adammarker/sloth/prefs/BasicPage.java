@@ -29,8 +29,10 @@ public class BasicPage extends FieldEditorPreferencePage
         //TODO:  font not connected to anything at the moment.
         addField(new FontFieldEditor("font_basic",
                 "font", getFieldEditorParent())) ;
+        
         addField(new ColorFieldEditor("color_background",
                 "background", getFieldEditorParent())) ;
+        
         addField(new ColorFieldEditor("color_keyword_fg",
                 "keywords", getFieldEditorParent())) ;
         addField(new ColorFieldEditor("color_event_fg",
