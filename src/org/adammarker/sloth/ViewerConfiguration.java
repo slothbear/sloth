@@ -18,7 +18,7 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
  * @author Adam Marker  8Feb05
  */
 public class ViewerConfiguration extends SourceViewerConfiguration {
-
+    
 	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
 		PresentationReconciler reconciler = new PresentationReconciler();
 		DefaultDamagerRepairer ddr = new DefaultDamagerRepairer(new Scanner());

@@ -28,14 +28,14 @@ public class Scanner extends RuleBasedScanner {
 
 		public Scanner() {
 			setRules(new IRule[] {
-			    listRule(LSLconstants.KEYWORDS, LSLconstants.KEYWORD),
-			    listRule(LSLconstants.TYPES, LSLconstants.TYPE),
-			    listRule(LSLconstants.EVENTS, LSLconstants.EVENT),
-			    listRule(LSLconstants.CONSTANTS, LSLconstants.CONSTANT),
-			    listRule(LSLconstants.FUNCTIONS, LSLconstants.FUNCTION),
+			    listRule(LSL.KEYWORDS, LSL.KEYWORD),
+			    listRule(LSL.TYPES, LSL.TYPE),
+			    listRule(LSL.EVENTS, LSL.EVENT),
+			    listRule(LSL.CONSTANTS, LSL.CONSTANT),
+			    listRule(LSL.FUNCTIONS, LSL.FUNCTION),
 	
-				new EndOfLineRule("//", new Token(LSLconstants.COMMENT)),
-				new SingleLineRule("\"", "\"", new Token(LSLconstants.STRING), '\\'),
+				new EndOfLineRule("//", new Token(LSL.COMMENT)),
+				new SingleLineRule("\"", "\"", new Token(LSL.STRING), '\\'),
 				
 //TODO:  what does the whitespacerule do for me?
 				new WhitespaceRule(new IWhitespaceDetector() {

@@ -12,31 +12,36 @@ import org.eclipse.swt.widgets.Display;
 /**
  * @author Adam Marker Feb 8, 2005
  */
-public interface LSLconstants {
+public interface LSL {
     
     //TODO:  figure out where these declarations should go.
+    // these are just the defaults .... others will come from prefs.
+    // all will need disposing. (image, color, font)
+    
+    static final RGB BACKGROUND_RGB = new RGB(201,210,205) ;
 
+    static final RGB KEYWORD_RGB = new RGB(134,37,84) ;
+    static final RGB EVENT_RGB = new RGB(13,84,134) ;
+    static final RGB TYPE_RGB = new RGB(36,84,36) ;
+    static final RGB STRING_RGB = new RGB(13,61,13) ;
+    static final RGB CONSTANT_RGB = new RGB(36,37,134) ;
+    static final RGB FUNCTION_RGB = new RGB(134,13,48) ;
+    static final RGB COMMENT_RGB = new RGB(205,84,48) ;
+    
 	static final TextAttribute KEYWORD = new TextAttribute(
-            new Color(Display.getCurrent(), new RGB(134,37,84)),
-            null, SWT.BOLD);
+            new Color(Display.getCurrent(), KEYWORD_RGB), null, SWT.BOLD);
 	static final TextAttribute EVENT = new TextAttribute(
-	        new Color(Display.getCurrent(), new RGB(13,84,134)),
-	        null, SWT.BOLD);
+	        new Color(Display.getCurrent(), EVENT_RGB), null, SWT.BOLD);
 	static final TextAttribute TYPE = new TextAttribute(
-            new Color(Display.getCurrent(), new RGB(36,84,36)),
-            null, SWT.BOLD);
+            new Color(Display.getCurrent(), TYPE_RGB), null, SWT.BOLD);
 	static final TextAttribute STRING = new TextAttribute(
-            new Color(Display.getCurrent(), new RGB(13,61,13)),
-            null, SWT.NONE);
+            new Color(Display.getCurrent(), STRING_RGB), null, SWT.NONE);
 	static final TextAttribute CONSTANT = new TextAttribute(
-	        new Color(Display.getCurrent(), new RGB(36,37,134)),
-	        null, SWT.BOLD);
+	        new Color(Display.getCurrent(), CONSTANT_RGB), null, SWT.BOLD);
 	static final TextAttribute FUNCTION = new TextAttribute(
-	        new Color(Display.getCurrent(), new RGB(134,13,48)),
-	        null, SWT.BOLD);
+	        new Color(Display.getCurrent(), FUNCTION_RGB), null, SWT.BOLD);
     static final TextAttribute COMMENT = new TextAttribute(
-            new Color(Display.getCurrent(), new RGB(205,84,48)),
-	        null, SWT.NONE) ; 
+            new Color(Display.getCurrent(), COMMENT_RGB), null, SWT.NONE) ; 
 	
     // updated 17Feb05 from wiki (++ default, state) (by hand)
     // http://secondlife.com/badgeo/wakka.php?wakka=FlowControl

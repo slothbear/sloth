@@ -1,5 +1,7 @@
 package org.adammarker.sloth;
 
+import org.eclipse.core.runtime.Preferences;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.*;
 import org.osgi.framework.BundleContext;
 import java.util.*;
@@ -66,4 +68,5 @@ public class SlothPlugin extends AbstractUIPlugin {
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
 	}
+	
 }

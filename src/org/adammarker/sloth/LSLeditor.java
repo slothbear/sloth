@@ -38,7 +38,7 @@ public class LSLeditor extends TextEditor {
         
         StyledText widget = getSourceViewer().getTextWidget();
         
-        backgroundColor = new Color(Display.getCurrent(), new RGB(201,210,205)) ;
+        backgroundColor = new Color(Display.getCurrent(), LSL.BACKGROUND_RGB) ;
         widget.setBackground(backgroundColor);
 
 		}

@@ -30,29 +30,29 @@ public class CompletionProcessor implements IContentAssistProcessor {
         int length = prefix.length() ;
         
         List completions = new LinkedList() ;
-        for (int ix = 0; ix < LSLconstants.FUNCTIONS.length; ix++) {
-            if (testCompletion(LSLconstants.FUNCTIONS[ix], prefix)) {
-                completions.add(LSLconstants.FUNCTIONS[ix]) ;
+        for (int ix = 0; ix < LSL.FUNCTIONS.length; ix++) {
+            if (testCompletion(LSL.FUNCTIONS[ix], prefix)) {
+                completions.add(LSL.FUNCTIONS[ix]) ;
             }
         }
-        for (int ix = 0; ix < LSLconstants.EVENTS.length; ix++) {
-            if (testCompletion(LSLconstants.EVENTS[ix], prefix)) {
-                completions.add(LSLconstants.EVENTS[ix]) ;
+        for (int ix = 0; ix < LSL.EVENTS.length; ix++) {
+            if (testCompletion(LSL.EVENTS[ix], prefix)) {
+                completions.add(LSL.EVENTS[ix]) ;
             }
         }
-        for (int ix = 0; ix < LSLconstants.KEYWORDS.length; ix++) {
-            if (testCompletion(LSLconstants.KEYWORDS[ix], prefix)) {
-                completions.add(LSLconstants.KEYWORDS[ix]) ;
+        for (int ix = 0; ix < LSL.KEYWORDS.length; ix++) {
+            if (testCompletion(LSL.KEYWORDS[ix], prefix)) {
+                completions.add(LSL.KEYWORDS[ix]) ;
             }
         }
-        for (int ix = 0; ix < LSLconstants.TYPES.length; ix++) {
-            if (testCompletion(LSLconstants.TYPES[ix], prefix)) {
-                completions.add(LSLconstants.TYPES[ix]) ;
+        for (int ix = 0; ix < LSL.TYPES.length; ix++) {
+            if (testCompletion(LSL.TYPES[ix], prefix)) {
+                completions.add(LSL.TYPES[ix]) ;
             }
         }
-        for (int ix = 0; ix < LSLconstants.CONSTANTS.length; ix++) {
-            if (testCompletion(LSLconstants.CONSTANTS[ix], prefix)) {
-                completions.add(LSLconstants.CONSTANTS[ix]) ;
+        for (int ix = 0; ix < LSL.CONSTANTS.length; ix++) {
+            if (testCompletion(LSL.CONSTANTS[ix], prefix)) {
+                completions.add(LSL.CONSTANTS[ix]) ;
             }
         }
 
