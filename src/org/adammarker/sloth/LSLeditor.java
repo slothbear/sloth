@@ -9,5 +9,9 @@ import org.eclipse.ui.editors.text.TextEditor;
  * @author Adam Marker 8Feb2005
  */
 public class LSLeditor extends TextEditor {
-    // implementation of our LSL editor.
+    
+    public LSLeditor() {
+        setSourceViewerConfiguration(new ViewerConfiguration());
+    }
+
 }
