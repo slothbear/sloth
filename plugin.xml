@@ -33,4 +33,17 @@
       </editor>
    </extension>
 
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.adammarker.sloth.prefs.BasicPage"
+            name="Sloth (LSL) editor"
+            id="org.adammarker.sloth.prefs.BasicPage">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.adammarker.sloth.prefs.Defaults"/>
+   </extension>
+
 </plugin>
