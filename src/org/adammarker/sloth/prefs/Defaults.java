@@ -3,6 +3,7 @@
  */
 package org.adammarker.sloth.prefs;
 
+import org.adammarker.sloth.ColorManager;
 import org.adammarker.sloth.LSL;
 import org.adammarker.sloth.SlothPlugin;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
@@ -26,20 +27,35 @@ public class Defaults extends AbstractPreferenceInitializer {
      * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
      */
     public void initializeDefaultPreferences() {
-        
 	    IPreferenceStore store = SlothPlugin.getDefault().getPreferenceStore() ;
 	    
-        store.setDefault("indent_braces", true);
-
-        PreferenceConverter.setDefault(store, "color_background", LSL.BACKGROUND_RGB) ;
+	    ColorManager colors = SlothPlugin.getDefault().getSharedTextColors() ;
         
-        PreferenceConverter.setDefault(store, "color_keyword_fg", LSL.KEYWORD_RGB) ;
-        PreferenceConverter.setDefault(store, "color_event_fg", LSL.EVENT_RGB) ;
-        PreferenceConverter.setDefault(store, "color_type_fg", LSL.TYPE_RGB) ;
-        PreferenceConverter.setDefault(store, "color_string_fg", LSL.STRING_RGB) ;
-        PreferenceConverter.setDefault(store, "color_constant_fg", LSL.CONSTANT_RGB) ;
-        PreferenceConverter.setDefault(store, "color_function_fg", LSL.FUNCTION_RGB) ;
-        PreferenceConverter.setDefault(store, "color_comment_fg", LSL.COMMENT_RGB) ;
+        PreferenceConverter.setDefault(store, LSL.PREF_KEYWORD_FG,
+                colors.getColor(LSL.KEYWORD_RGB).getRGB()) ;
+        PreferenceConverter.setDefault(store, LSL.PREF_EVENT_FG,
+                colors.getColor(LSL.EVENT_RGB).getRGB()) ;
+        PreferenceConverter.setDefault(store, LSL.PREF_TYPE_FG,
+                colors.getColor(LSL.TYPE_RGB).getRGB()) ;
+        PreferenceConverter.setDefault(store, LSL.PREF_STRING_FG,
+                colors.getColor(LSL.STRING_RGB).getRGB()) ;
+        PreferenceConverter.setDefault(store, LSL.PREF_CONSTANT_FG,
+                colors.getColor(LSL.CONSTANT_RGB).getRGB()) ;
+        PreferenceConverter.setDefault(store, LSL.PREF_FUNCTION_FG,
+                colors.getColor(LSL.FUNCTION_RGB).getRGB()) ;
+        PreferenceConverter.setDefault(store, LSL.PREF_COMMENT_FG,
+                colors.getColor(LSL.COMMENT_RGB).getRGB()) ;
+
+        //TODO:  font default here
+        // where to store the actual font?  maybe in plugin for now, easy dispose.
+        
+        PreferenceConverter.setDefault(store, LSL.PREF_FOREGROUND,
+                colors.getColor(LSL.FOREGROUND_RGB).getRGB()) ;
+        PreferenceConverter.setDefault(store, LSL.PREF_BACKGROUND,
+                colors.getColor(LSL.BACKGROUND_RGB).getRGB()) ;
+        
+        // checkboxes, radio buttons
+        store.setDefault("indent_braces", true);
     }
 
 }
