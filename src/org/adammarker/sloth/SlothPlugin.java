@@ -1,7 +1,5 @@
 package org.adammarker.sloth;
 
-import org.eclipse.core.runtime.Preferences;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.*;
 import org.osgi.framework.BundleContext;
 import java.util.*;
@@ -14,6 +12,9 @@ public class SlothPlugin extends AbstractUIPlugin {
 	private static SlothPlugin plugin;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
+    private ColorManager fSharedTextColors ;
+    private TokenManager fTokenManager ;
+    private FontManager fFontManager ;
 	
 	/**
 	 * The constructor.
@@ -39,6 +40,14 @@ public class SlothPlugin extends AbstractUIPlugin {
 	 * This method is called when the plug-in is stopped
 	 */
 	public void stop(BundleContext context) throws Exception {
+		if (fSharedTextColors != null) {
+//only on shutdown??   System.out.println("disposing shared colors") ;
+			fSharedTextColors.dispose();
+			fSharedTextColors = null;
+			fFontManager.dispose();
+			fFontManager = null;
+		}
+		
 		super.stop(context);
 	}
 
@@ -67,6 +76,25 @@ public class SlothPlugin extends AbstractUIPlugin {
 	 */
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
+	}
+
+	public ColorManager getSharedTextColors() {
+		if (fSharedTextColors == null)
+			fSharedTextColors= new ColorManager();
+		return fSharedTextColors;
+	}
+
+	public TokenManager getTokenManager() {
+		if (fTokenManager == null)
+			fTokenManager= new TokenManager(
+			        getPreferenceStore(), getSharedTextColors());
+		return fTokenManager ;
+	}
+	
+	public FontManager getFontManager() {
+		if (fFontManager == null)
+			fFontManager= new FontManager();
+		return fFontManager ;
 	}
 	
 }
