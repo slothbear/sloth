@@ -15,28 +15,29 @@ import org.eclipse.swt.widgets.Display;
 public interface LSLconstants {
     
     //TODO:  figure out where these declarations should go.
-    static final TextAttribute COMMENT = new TextAttribute(
-            new Color(Display.getCurrent(), new RGB(204,76,39)),
-	        null, SWT.NONE);
-	static final TextAttribute STRING = new TextAttribute(
-            new Color(Display.getCurrent(), new RGB(13,61,13)),
-            null, SWT.BOLD);
+
 	static final TextAttribute KEYWORD = new TextAttribute(
-            new Color(Display.getCurrent(), new RGB(13,14,203)),
+            new Color(Display.getCurrent(), new RGB(134,37,84)),
             null, SWT.BOLD);
+	static final TextAttribute EVENT = new TextAttribute(
+	        new Color(Display.getCurrent(), new RGB(13,84,134)),
+	        null, SWT.BOLD);
 	static final TextAttribute TYPE = new TextAttribute(
             new Color(Display.getCurrent(), new RGB(36,84,36)),
             null, SWT.BOLD);
-	static final TextAttribute EVENT = new TextAttribute(
-	       new Color(Display.getCurrent(), new RGB(0,76,128)),
-	       null, SWT.BOLD);
+	static final TextAttribute STRING = new TextAttribute(
+            new Color(Display.getCurrent(), new RGB(13,61,13)),
+            null, SWT.NONE);
 	static final TextAttribute CONSTANT = new TextAttribute(
-	        new Color(Display.getCurrent(), new RGB(25,76,129)),
+	        new Color(Display.getCurrent(), new RGB(36,37,134)),
 	        null, SWT.BOLD);
 	static final TextAttribute FUNCTION = new TextAttribute(
-	        new Color(Display.getCurrent(), new RGB(133,13,45)),
+	        new Color(Display.getCurrent(), new RGB(134,13,48)),
 	        null, SWT.BOLD);
-    
+    static final TextAttribute COMMENT = new TextAttribute(
+            new Color(Display.getCurrent(), new RGB(205,84,48)),
+	        null, SWT.NONE) ; 
+	
     final static String[] KEYWORDS = {
     	    "default",
     	    "state",
@@ -93,6 +94,15 @@ public interface LSLconstants {
     	    "changed",
     	    } ;    
         
+    
+    //BUG:  these constants not highlighted in SL editor (12Feb05)
+    /*
+     PERMISSION_REMAP_CONTROLS 
+PERMISSION_RELEASE_OWNERSHIP
+ PERMISSION_CHANGE_JOINTS
+  PERMISSION_CHANGE_PERMISSIONS
+     * */
+
     final static String[] CONSTANTS = {
             "TRUE",
             "FALSE",
