@@ -19,6 +19,7 @@ import org.eclipse.jface.text.rules.WordRule;
  */
 public class Scanner extends RuleBasedScanner {
  
+//TODO:  does LSL follow Java word rules??    
     final IWordDetector wordDetector =
         new IWordDetector() {
 		public boolean isWordStart(char c) { return Character.isJavaIdentifierStart(c); }
@@ -27,8 +28,6 @@ public class Scanner extends RuleBasedScanner {
 
 		public Scanner() {
 			setRules(new IRule[] {
-//TODO:  type and string colors very close
-//TODO:  constant and event colors very close
 			    listRule(LSLconstants.KEYWORDS, LSLconstants.KEYWORD),
 			    listRule(LSLconstants.TYPES, LSLconstants.TYPE),
 			    listRule(LSLconstants.EVENTS, LSLconstants.EVENT),
@@ -37,8 +36,7 @@ public class Scanner extends RuleBasedScanner {
 	
 				new EndOfLineRule("//", new Token(LSLconstants.COMMENT)),
 				new SingleLineRule("\"", "\"", new Token(LSLconstants.STRING), '\\'),
-//TODO:  is single-quote style string allowed?
-				new SingleLineRule("'", "'", new Token(LSLconstants.STRING), '\\'),
+				
 //TODO:  what does the whitespacerule do for me?
 				new WhitespaceRule(new IWhitespaceDetector() {
 					public boolean isWhitespace(char c) { return Character.isWhitespace(c);	}
