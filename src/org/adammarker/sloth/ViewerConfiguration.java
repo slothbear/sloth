@@ -19,9 +19,15 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
  */
 public class ViewerConfiguration extends SourceViewerConfiguration {
     
-	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
+	private TokenManager tokenManager ;
+	
+    public ViewerConfiguration(TokenManager tokenManager) {
+        this.tokenManager = tokenManager ;
+    }
+
+    public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
 		PresentationReconciler reconciler = new PresentationReconciler();
-		DefaultDamagerRepairer ddr = new DefaultDamagerRepairer(new Scanner());
+		DefaultDamagerRepairer ddr = new DefaultDamagerRepairer(new Scanner(tokenManager));
 		reconciler.setRepairer(ddr, IDocument.DEFAULT_CONTENT_TYPE);
 		reconciler.setDamager(ddr, IDocument.DEFAULT_CONTENT_TYPE);
 		return reconciler;
