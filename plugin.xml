@@ -3,7 +3,7 @@
 <plugin
    id="org.adammarker.sloth"
    name="Sloth (LSL editor)"
-   version="1.0.2"
+   version="1.2.0"
    provider-name="Adam Marker"
    class="org.adammarker.sloth.SlothPlugin">
 
@@ -24,26 +24,27 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="LSL editor"
             default="true"
-            extensions="lsl,LSL"
+            name="LSL editor"
             icon="icons/hand.gif"
+            extensions="lsl,LSL"
             class="org.adammarker.sloth.LSLeditor"
             id="org.adammarker.sloth.editor">
       </editor>
    </extension>
-
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="org.adammarker.sloth.prefs.BasicPage"
             name="Sloth (LSL) editor"
+            class="org.adammarker.sloth.prefs.BasicPage"
             id="org.adammarker.sloth.prefs.BasicPage">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.adammarker.sloth.prefs.Defaults"/>
+      <initializer
+            class="org.adammarker.sloth.prefs.Defaults">
+      </initializer>
    </extension>
 
 </plugin>

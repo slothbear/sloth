@@ -3,9 +3,7 @@
  */
 package org.adammarker.sloth;
 
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * @author Adam Marker Feb 8, 2005
