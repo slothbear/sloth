@@ -5,6 +5,7 @@ package org.adammarker.sloth;
 
 import org.eclipse.jface.text.IAutoIndentStrategy;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextDoubleClickStrategy;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
@@ -48,9 +49,19 @@ public class ViewerConfiguration extends SourceViewerConfiguration {
 	//		no /**/ comments.
 	//		does LSL permit single quote strings? '}'  NO
 	//		does LSL permit escape characters?  \"  YES
+	//TODO:  allow this to be turned off via preference
     public IAutoIndentStrategy getAutoIndentStrategy(
             ISourceViewer sourceViewer, String contentType) {
         return new AutoIndentStrategy() ;
+    }
+    
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getDoubleClickStrategy(org.eclipse.jface.text.source.ISourceViewer, java.lang.String)
+     */
+    public ITextDoubleClickStrategy getDoubleClickStrategy(
+            ISourceViewer sourceViewer, String contentType) {
+    	//TODO:  allow this to be turned off via preference
+        return new DoubleClickSelector() ;
     }
 	
 }
