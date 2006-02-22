@@ -2,10 +2,8 @@ package org.adammarker.sloth.prefs;
 
 import org.adammarker.sloth.LSL;
 import org.adammarker.sloth.SlothPlugin;
-import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ColorFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.FontFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
