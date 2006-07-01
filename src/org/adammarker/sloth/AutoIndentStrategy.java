@@ -10,13 +10,17 @@
  *******************************************************************************/
 package org.adammarker.sloth;
 
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
+import org.eclipse.jface.text.DocumentCommand;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.TextUtilities;
 
-import org.eclipse.jface.text.*;
 
 /**
  * Auto indent strategy sensitive to brackets.
  */
-public class AutoIndentStrategy extends DefaultAutoIndentStrategy {
+public class AutoIndentStrategy extends DefaultIndentLineAutoEditStrategy {
 
 	public AutoIndentStrategy() {
 	    //TODO:  doc
