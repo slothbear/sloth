@@ -3,7 +3,7 @@
  */
 package org.adammarker.sloth;
 
-import org.eclipse.jface.text.IAutoIndentStrategy;
+import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextDoubleClickStrategy;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
@@ -50,9 +50,14 @@ public class ViewerConfiguration extends SourceViewerConfiguration {
 	//		does LSL permit single quote strings? '}'  NO
 	//		does LSL permit escape characters?  \"  YES
 	//TODO:  allow this to be turned off via preference
-    public IAutoIndentStrategy getAutoIndentStrategy(
-            ISourceViewer sourceViewer, String contentType) {
-        return new AutoIndentStrategy() ;
+//    public AutoIndentStrategy getAutoIndentStrategy(
+//            ISourceViewer sourceViewer, String contentType) {
+//        return new AutoIndentStrategy() ;
+//    }
+    
+    @Override
+    public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType) {
+    	return new IAutoEditStrategy[] { new AutoIndentStrategy() } ;
     }
     
     /* (non-Javadoc)

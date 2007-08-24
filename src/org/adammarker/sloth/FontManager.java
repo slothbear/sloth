@@ -3,6 +3,7 @@
  */
 
 //TODO:  23Feb05  currently unhooked; use workbench Text Font pref for now.
+//DOPE:  30Dec06  Why is it unhooked?  record the issue, dope.
 
 package org.adammarker.sloth;
 

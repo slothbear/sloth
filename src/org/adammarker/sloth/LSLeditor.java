@@ -3,6 +3,13 @@
  */
 package org.adammarker.sloth;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -13,6 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
+import org.jvyaml.YAML;
 
 /**
  * @author Adam Marker 8Feb2005
@@ -37,6 +45,29 @@ public class LSLeditor extends TextEditor {
         //NOTE:  assoc the pref store here adds property change listener.
         preferenceStore = SlothPlugin.getDefault().getPreferenceStore() ;
         setPreferenceStore(preferenceStore) ;
+        
+        Map expected = new HashMap();
+        List events ;
+        try {
+        	
+        	
+        	File dir1 = new File (".");
+            File dir2 = new File ("..");
+              System.out.println ("Current dir : " + dir1.getCanonicalPath());
+              System.out.println ("Parent  dir : " + dir2.getCanonicalPath());        	
+        	
+        	
+        	
+			expected = (Map) YAML.load(new FileReader("keywords.yaml")) ;
+			events = (List) expected.get("events") ;
+	        System.out.println("3=" + events.get(3));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     /* (non-Javadoc)
