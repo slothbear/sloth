@@ -1,16 +1,10 @@
-/*
- * Created on Feb 8, 2005
+/**
+ * @author Adam Marker 8Feb2005
  */
 package org.adammarker.sloth;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
@@ -20,54 +14,18 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
-import org.jvyaml.YAML;
 
-/**
- * @author Adam Marker 8Feb2005
- */
 public class LSLeditor extends TextEditor {
     private IPreferenceStore preferenceStore ;
     private ColorManager colorManager ;
     private TokenManager tokenManager ;
-//    private FontManager fontManager ;
-    
-    
-//    TODO:  maybe use AbstractDecoratedTextEditorPreferenceConstants??
     
     public LSLeditor() {
-
         colorManager = SlothPlugin.getDefault().getSharedTextColors() ;
-        tokenManager = SlothPlugin.getDefault().getTokenManager() ;
-//        fontManager  = SlothPlugin.getDefault().getFontManager() ;
-        
-        setSourceViewerConfiguration(new ViewerConfiguration(tokenManager));
-        
-        //NOTE:  assoc the pref store here adds property change listener.
+        tokenManager = SlothPlugin.getDefault().getTokenManager() ;        
+        setSourceViewerConfiguration(new ViewerConfiguration(tokenManager));        
         preferenceStore = SlothPlugin.getDefault().getPreferenceStore() ;
         setPreferenceStore(preferenceStore) ;
-        
-        Map expected = new HashMap();
-        List events ;
-        try {
-        	
-        	
-        	File dir1 = new File (".");
-            File dir2 = new File ("..");
-              System.out.println ("Current dir : " + dir1.getCanonicalPath());
-              System.out.println ("Parent  dir : " + dir2.getCanonicalPath());        	
-        	
-        	
-        	
-			expected = (Map) YAML.load(new FileReader("keywords.yaml")) ;
-			events = (List) expected.get("events") ;
-	        System.out.println("3=" + events.get(3));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 
     /* (non-Javadoc)
@@ -81,10 +39,8 @@ public class LSLeditor extends TextEditor {
                 PreferenceConverter.getColor(preferenceStore, LSL.PREF_BACKGROUND))) ;
         widget.setForeground(colorManager.getColor(
                 PreferenceConverter.getColor(preferenceStore, LSL.PREF_FOREGROUND))) ;
-
 		}
     
-    // support for content assist (currently only via keystroke??)
     protected void createActions() {
         super.createActions();
         Action action = new ContentAssistAction(
@@ -99,12 +55,9 @@ public class LSLeditor extends TextEditor {
      * @see org.eclipse.ui.texteditor.AbstractDecoratedTextEditor#handlePreferenceStoreChanged(org.eclipse.jface.util.PropertyChangeEvent)
      */
     protected void handlePreferenceStoreChanged(PropertyChangeEvent event) {
-        String property = event.getProperty() ;
-//        System.out.println("pref store changed " + property) ;
-     
+        String property = event.getProperty() ;     
         StyledText widget = getSourceViewer().getTextWidget();
         
-        // IPreferenceStore preferenceStore = getPreferenceStore() ;
         if (property.equals(LSL.PREF_BACKGROUND)) {
             widget.setBackground(colorManager.getColor(
                     PreferenceConverter.getColor(preferenceStore, LSL.PREF_BACKGROUND))) ;
@@ -113,16 +66,6 @@ public class LSLeditor extends TextEditor {
             widget.setForeground(colorManager.getColor(
                     PreferenceConverter.getColor(preferenceStore, LSL.PREF_FOREGROUND))) ;               
         }
-//        else if (property.equals(LSL.PREF_INDENT_BRACE)) {
-//            //TODO:  handle brace indent
-//        }
-//        else if (property.equals(LSL.PREF_FONT_BASIC)) {
-//
-//            FontData fd[] = (FontData[]) event.getNewValue() ;
-//            Font f = fontManager.getFont(fd[0]) ;
-//            // Font f = new Font(Display.getCurrent(), fd[0]) ;
-//            widget.setFont(f) ;
-//        }
         else if (property.startsWith((LSL.COLOR_PREFIX))) {
             tokenManager.handlePreferenceStoreChanged(event) ;
         }
@@ -134,15 +77,12 @@ public class LSLeditor extends TextEditor {
     /* (non-Javadoc)
      * @see org.eclipse.ui.texteditor.AbstractTextEditor#affectsTextPresentation(org.eclipse.jface.util.PropertyChangeEvent)
      */
-    //TODO:  assume for now that everything affects presentation.
-    // note:  fore/background changes should return false; tested, and apparently
-    // picked up elsewhere ... cuz they always take affect.
+    // TODO:  assume for now that everything affects presentation.
+    // NOTE:  foreground/background changes should return false; tested, and they 
+    // apparently recognized elsewhere ... because they always take effect.
     protected boolean affectsTextPresentation(PropertyChangeEvent event) {
-
-        //TODO:  this startsWith repeats the one above in HPS.  D.R.Y.
          return event.getProperty().startsWith((LSL.COLOR_PREFIX))
          	|| super.affectsTextPresentation(event) ;
-
     }
 
     /* (non-Javadoc)
